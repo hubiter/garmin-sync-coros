@@ -17,6 +17,7 @@ SYNC_CONFIG = {
     'GARMIN_AUTH_DOMAIN': '',
     'GARMIN_EMAIL': '',
     'GARMIN_PASSWORD': '',
+    'GARMIN_NEWEST_NUM': 0,
     "COROS_EMAIL": '',
     "COROS_PASSWORD": '',
 }
