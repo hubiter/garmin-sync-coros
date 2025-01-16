@@ -55,18 +55,26 @@ class GarminClient:
      params = {"start": str(start), "limit": str(limit)}
      activities =  self.connectapi(path=GARMIN_URL_DICT["garmin_connect_activities"], params=params)
      return activities;
-
+  
   ## 获取所有运动
   def getAllActivities(self): 
     all_activities = []
     start = 0
+    limit=100
+    if 0 < self.newestNum < 100:
+      limit = self.newestNum
+      
     while(True):
-      activities = self.getActivities(start=start, limit=100)
+      activities = self.getActivities(start=start, limit=limit)
       if len(activities) > 0:
-         all_activities.extend(activities)
+        all_activities.extend(activities)
+        
+        if 0 < self.newestNum < 100 or start > self.newestNum:
+           logger.warning("Garmin data has been pull.")
+           return all_activities
       else:
          return all_activities
-      start += 100
+      start += limit
 
   ## 下载原始格式的运动
   def downloadFitActivity(self, activity):
